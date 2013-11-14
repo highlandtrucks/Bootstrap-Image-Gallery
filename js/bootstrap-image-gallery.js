@@ -62,6 +62,7 @@
                     modal.addClass('in');
                 }, factoryInterface);
             modal.find('.modal-title').text(element.title || String.fromCharCode(160));
+            modal.find('.modal-description').text(element.data('description') || String.fromCharCode(160));
             modal.find('.modal-body').append(element);
             return modal[0];
         },
