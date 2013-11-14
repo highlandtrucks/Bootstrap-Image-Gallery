@@ -32,6 +32,7 @@
     });
 
     var close = Gallery.prototype.close,
+        onslide = Gallery.prototype.onslide,
         imageFactory = Gallery.prototype.imageFactory,
         videoFactory = Gallery.prototype.videoFactory,
         textFactory = Gallery.prototype.textFactory;
@@ -62,7 +63,6 @@
                     modal.addClass('in');
                 }, factoryInterface);
             modal.find('.modal-title').text(element.title || String.fromCharCode(160));
-            modal.find('.modal-description').text($(element).data('description') || String.fromCharCode(160));
             modal.find('.modal-body').append(element);
             return modal[0];
         },
@@ -77,6 +77,16 @@
 
         textFactory: function (obj, callback, factoryInterface) {
             return this.modalFactory(obj, callback, factoryInterface, textFactory);
+        },
+
+        onslide: function (index, slide) {
+            onslide.call(this, index, slide);
+            var text = this.list[index].getAttribute('data-description'),
+                node = this.container.find('.modal-description');
+            node.empty();
+            if (text) {
+                $(node[0]).append(text);
+            }
         },
 
         close: function () {
